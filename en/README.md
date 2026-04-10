@@ -1,65 +1,76 @@
-# Harness 100 — Production-Grade Agent Team Harness Collection
+# Harness 100 — English Harness Collection
 
-**100 ready-to-use agent team harnesses** for everyday life and work, built for Claude Code.
+This directory contains the **English edition** of the Harness 100 collection.
 
-Each harness orchestrates 4-5 domain-expert agents collaborating via SendMessage in production-grade workflows.
+Each harness now preserves both:
+
+- the original Claude Code source under `claude/.claude/`
+- the converted Codex source under `codex/AGENTS.md`, `codex/.codex/`, and `codex/.agents/`
 
 ## Project Scale
 
 | Item | Count |
-|------|-------|
-| Harnesses | 100 |
-| Agent definitions | 489 |
-| Skills (orchestrator + agent-extending) | 315 |
-| Total files | 904 |
+|------|------:|
+| English harnesses | 100 |
+| Claude agent definitions | 489 |
+| Claude skills | 315 |
+| Codex custom agents | 489 |
+| Codex skills | 315 |
 
 ## Quick Start
 
-Copy any harness folder's `.claude/` directory into your project:
+Copy the contents of the wrapper folder you want into your project root.
 
 ```bash
-# Example: apply the youtube-production harness to your project
-cp -r 01-youtube-production/.claude/ /path/to/my-project/.claude/
+# Use the original Claude version
+cp -r 01-youtube-production/claude/. /path/to/my-project/
+
+# Use the converted Codex version
+cp -r 01-youtube-production/codex/. /path/to/my-project/
 ```
 
-Each harness folder contains a `CLAUDE.md` with structure and usage details.
+This preserves hidden paths such as `.claude`, `.codex`, and `.agents` in the destination project.
 
 ## Harness Structure
 
-Every harness follows a consistent structure:
+Every English harness now follows this layout:
 
-```
+```text
 {NN}-{harness-name}/
-└── .claude/
-    ├── CLAUDE.md                          # Project overview
-    ├── agents/
-    │   ├── {agent-1}.md                   # Specialist agent definition
-    │   ├── {agent-2}.md
-    │   ├── {agent-3}.md
-    │   ├── {agent-4}.md
-    │   └── {agent-5}.md (optional)
-    └── skills/
-        ├── {orchestrator}/
-        │   └── skill.md                   # Orchestrator skill
-        ├── {agent-skill-1}/
-        │   └── skill.md                   # Agent-extending skill
-        └── {agent-skill-2}/
-            └── skill.md                   # Agent-extending skill
+├── claude/
+│   └── .claude/
+│       ├── CLAUDE.md
+│       ├── agents/
+│       │   └── *.md
+│       └── skills/
+│           └── */skill.md
+└── codex/
+    ├── AGENTS.md
+    ├── .codex/
+    │   └── agents/
+    │       └── *.toml
+    └── .agents/
+        └── skills/
+            └── */SKILL.md
 ```
+
+## Dual-Format Intent
+
+| Format | Primary Files | Purpose |
+|-------|---------------|---------|
+| **Claude** | `claude/.claude/CLAUDE.md`, `claude/.claude/agents/*.md`, `claude/.claude/skills/*/skill.md` | Keep the original Claude team harness intact |
+| **Codex** | `codex/AGENTS.md`, `codex/.codex/agents/*.toml`, `codex/.agents/skills/*/SKILL.md` | Use the converted Codex harness artifacts |
 
 ## Quality Standards
 
-Every harness meets these criteria:
+Every harness is intended to preserve:
 
-- **Agent Team Mode** — Direct communication via SendMessage, cross-validation
-- **Domain Expertise** — Real-world frameworks and methodologies embedded
-- **Output Templates** — Structured output formats per agent
-- **Dependency Management** — Task ordering with parallel execution
-- **Error Handling** — Fallback strategies for failure scenarios
-- **Scale-Based Modes** — Full / reduced / single-agent modes
-- **Test Scenarios** — Normal / existing-file / error flows (3 types)
-- **Trigger Boundaries** — Should-trigger + NOT-trigger defined
-- **Agent-Extending Skills** — 2-3 domain-specific skills that amplify agent capabilities
+- original specialist decomposition and workflow semantics
+- structured `_workspace/` deliverable contracts
+- task ordering and parallelizable stages
+- fallback/error-handling guidance from the source
+- trigger boundaries for generated Codex skills
+- 4-5 specialist agents plus orchestrator and extension skills where defined
 
 ---
 

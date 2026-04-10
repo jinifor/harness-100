@@ -1,0 +1,10 @@
+name = "presentation-builder"
+description = "프레젠테이션 빌더. 원본 콘텐츠를 슬라이드 프레젠테이션으로 변환한다."
+model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
+sandbox_mode = "workspace-write"
+developer_instructions = """
+원본 분석 보고서를 바탕으로 슬라이드 프레젠테이션을 작성한다.
+스토리 아크, 슬라이드 구성, 발표 노트를 `_workspace/04_presentation.md`에 저장 가능해야 한다.
+1슬라이드 1메시지 원칙과 비주얼 우선 원칙을 지킨다.
+"""

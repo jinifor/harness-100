@@ -1,60 +1,81 @@
-# Harness 100 — 실전 에이전트 팀 하네스 컬렉션
+# Harness 100 — Claude/Codex 하네스 컬렉션
 
-일상생활과 업무에 바로 적용할 수 있는 **100가지 에이전트 팀 하네스**를 구축한 프로젝트입니다.
+이 저장소는 **100가지 하네스 템플릿**을 영어와 한국어로 제공하며, 각 하네스의 **Claude 원본 구조**와 **Codex 변환 구조**를 함께 보존합니다.
 
-각 하네스는 Claude Code의 에이전트 팀 기능을 활용하여 도메인 전문가 4~5명이 협업하는 프로덕션급 워크플로우를 구성합니다.
+즉, 각 하네스 디렉토리 안에는 다음 두 가지가 공존합니다.
 
-## 프로젝트 규모
+- `claude/.claude/` 아래의 Claude Code 원본 자산
+- `codex/AGENTS.md`, `codex/.codex/`, `codex/.agents/` 아래의 Codex 변환 자산
+
+## 현재 규모
 
 | 항목 | 수량 |
-|------|------|
-| 하네스 | 100개 |
-| 에이전트 정의 | 489개 |
-| 오케스트레이터 스킬 | 100개 |
-| 총 파일 | 689개 |
+|------|-----:|
+| 하네스 템플릿 | 100개 |
+| 언어 변형 | 2개 |
+| 하네스 디렉토리 | 200개 |
+| Claude 에이전트 정의 | 978개 |
+| Claude 스킬 | 630개 |
+| Codex custom agent | 978개 |
+| Codex skill | 630개 |
+
+## 현재 디렉토리 구조
+
+모든 하네스는 이제 다음 구조를 따릅니다:
+
+```text
+{NN}-{harness-name}/
+├── claude/
+│   └── .claude/
+│       ├── CLAUDE.md
+│       ├── agents/
+│       │   └── *.md
+│       └── skills/
+│           └── */skill.md
+└── codex/
+    ├── AGENTS.md
+    ├── .codex/
+    │   └── agents/
+    │       └── *.toml
+    └── .agents/
+        └── skills/
+            └── */SKILL.md
+```
 
 ## 사용법
 
-원하는 하네스 폴더를 프로젝트에 복사하면 바로 사용할 수 있습니다:
+원하는 형식의 래퍼 폴더 내용을 프로젝트 루트로 복사해서 사용합니다.
 
 ```bash
-# 예시: youtube-production 하네스를 내 프로젝트에 적용
-cp -r 01-youtube-production/.claude/ /path/to/my-project/.claude/
+# Claude 원본 사용
+cp -r en/01-youtube-production/claude/. /path/to/my-project/
+
+# Codex 변환본 사용
+cp -r en/01-youtube-production/codex/. /path/to/my-project/
+
+# 한국어 Codex 변환본 사용
+cp -r ko/01-youtube-production/codex/. /path/to/my-project/
 ```
 
-각 하네스 폴더의 `CLAUDE.md`에서 구조와 사용법을 확인할 수 있습니다.
+이 방식으로 복사하면 `.claude`, `.codex`, `.agents` 같은 숨김 경로와 `AGENTS.md`가 프로젝트 루트에 올바르게 배치됩니다.
 
-## 하네스 구조
+## 이 저장소가 보존하는 것
 
-모든 하네스는 동일한 구조를 따릅니다:
-
-```
-{NN}-{harness-name}/
-└── .claude/
-    ├── CLAUDE.md                          # 프로젝트 개요
-    ├── agents/
-    │   ├── {agent-1}.md                   # 전문 에이전트 정의
-    │   ├── {agent-2}.md
-    │   ├── {agent-3}.md
-    │   ├── {agent-4}.md
-    │   └── {agent-5}.md (선택)
-    └── skills/
-        └── {skill-name}/
-            └── skill.md                   # 오케스트레이터 스킬
-```
+- Claude Code 원본 `CLAUDE.md`, agent markdown, skill markdown
+- Codex용 `AGENTS.md`, custom agent TOML, skill `SKILL.md`
+- 도메인별 specialist 분해, `_workspace/` 산출물 계약, 병렬 가능한 단계 구성
+- 콘텐츠, 개발, 데이터, 비즈니스, 교육, 법률, 운영 등 10개 카테고리의 하네스 패턴
 
 ## 품질 기준
 
-모든 하네스는 다음 기준을 충족합니다:
+모든 하네스는 다음 기준을 목표로 정리되어 있습니다:
 
-- **에이전트 팀 모드** — SendMessage로 직접 통신, 교차 검증
-- **도메인 전문성** — 각 분야의 실전 프레임워크와 방법론 적용
-- **산출물 템플릿** — 에이전트별 구조화된 산출물 포맷 정의
-- **의존 관계 관리** — 작업 순서와 병렬 실행 명시
-- **에러 핸들링** — 실패 시 폴백 전략 정의
-- **작업 규모별 모드** — 풀/축소/단일 모드 지원
-- **테스트 시나리오** — 정상/기존파일활용/에러 흐름 3종
-- **트리거 경계** — should-trigger + NOT-trigger 명시
+- **원본 워크플로 보존** — Claude source의 specialist 역할과 파이프라인 유지
+- **Codex 대응 구조 포함** — `AGENTS.md`, `.codex/agents/*.toml`, `.agents/skills/**/SKILL.md`
+- **산출물 계약 유지** — `_workspace/` 중심의 파일 기반 handoff
+- **의존 관계 표현** — 작업 순서와 병렬 실행 가능한 단계 명시
+- **에러 핸들링** — source가 정의한 fallback 또는 축소 모드 반영
+- **트리거 경계 명시** — Codex skill frontmatter에 `Trigger when:` / `Do not trigger when:`
 
 ---
 

@@ -1,29 +1,83 @@
 # Harness 100
 
-Production-grade agent team harness collection for [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
+Production-grade harness collection with both original Claude Code assets and converted OpenAI Codex assets preserved side by side.
 
-100 ready-to-use harnesses across 10 domains — each with 4-5 specialist agents, an orchestrator skill, and 2-3 agent-extending skills. Available in **Korean** and **English**.
+The repository contains **100 harness templates** across 10 domains, published in **English** and **Korean**. Each harness directory now stores:
+
+- the original Claude-oriented source under `claude/.claude/`
+- the converted Codex-oriented source under `codex/AGENTS.md`, `codex/.codex/`, and `codex/.agents/`
 
 > **[English (en/)](en/)** | **[Korean (ko/)](ko/)**
 
 ## At a Glance
 
-| | ko/ | en/ | Total |
-|---|-----|-----|-------|
-| Harnesses | 100 | 100 | 200 |
-| Agent definitions | 489 | 489 | 978 |
-| Skills | 315 | 315 | 630 |
-| Total .md files | 904 | 904 | **1,808** |
+| Item | Count |
+|---|---:|
+| Harness templates | 100 |
+| Language variants | 2 |
+| Harness directories | 200 |
+| Claude agent definitions | 978 |
+| Claude skills | 630 |
+| Codex custom agents | 978 |
+| Codex skills | 630 |
+
+## Repository Layout
+
+Every harness now follows this nested archive layout:
+
+```text
+{NN}-{harness-name}/
+├── claude/
+│   └── .claude/
+│       ├── CLAUDE.md
+│       ├── agents/
+│       │   └── *.md
+│       └── skills/
+│           └── */skill.md
+└── codex/
+    ├── AGENTS.md
+    ├── .codex/
+    │   └── agents/
+    │       └── *.toml
+    └── .agents/
+        └── skills/
+            └── */SKILL.md
+```
 
 ## Quick Start
 
-```bash
-# Copy any harness into your project
-cp -r ko/01-youtube-production/.claude/ /path/to/my-project/.claude/
+Copy the contents of the wrapper folder you want into your project root.
 
-# Or use the English version
-cp -r en/01-youtube-production/.claude/ /path/to/my-project/.claude/
+```bash
+# Claude version
+cp -r en/01-youtube-production/claude/. /path/to/my-project/
+
+# Codex version
+cp -r en/01-youtube-production/codex/. /path/to/my-project/
+
+# Korean Codex version
+cp -r ko/01-youtube-production/codex/. /path/to/my-project/
 ```
+
+This preserves the required hidden paths such as `.claude`, `.codex`, and `.agents`.
+
+## What This Repository Preserves
+
+- Original Claude harness structure and source prompts
+- Converted Codex `AGENTS.md`, custom-agent TOML, and skill layouts
+- Domain-specific agent teams, workflows, deliverable contracts, and extension skills
+- Parallel specialist decomposition across content, software, data, business, legal, education, and operations domains
+
+## Quality Standards
+
+Every harness includes:
+
+- Original specialist workflow preserved from the Claude source
+- Codex-facing `AGENTS.md`, custom agents, and reusable skills
+- Structured output contracts and `_workspace/` deliverable conventions
+- Task ordering with explicit dependencies and parallelizable stages
+- Error handling and reduced-scope execution modes where the source defined them
+- Trigger boundaries for generated Codex skills
 
 ## Categories
 
@@ -40,47 +94,12 @@ cp -r en/01-youtube-production/.claude/ /path/to/my-project/.claude/
 | 9 | Operations & Process | 89-95 | Hiring, onboarding, audit, procurement |
 | 10 | Specialized Domains | 96-100 | Real estate, e-commerce, ESG, IP portfolio |
 
-## Harness Architecture
+### Dual-Format View
 
-```
-{NN}-{harness-name}/
-└── .claude/
-    ├── CLAUDE.md                    # Project overview
-    ├── agents/
-    │   ├── {specialist-1}.md        # Domain expert agent
-    │   ├── {specialist-2}.md
-    │   ├── {specialist-3}.md
-    │   ├── {specialist-4}.md
-    │   └── {reviewer/qa}.md         # Cross-validation agent
-    └── skills/
-        ├── {orchestrator}/
-        │   └── skill.md             # Team orchestration
-        ├── {domain-skill-1}/
-        │   └── skill.md             # Agent-extending skill
-        └── {domain-skill-2}/
-            └── skill.md             # Agent-extending skill
-```
-
-### Three-Layer Skill System
-
-| Layer | Purpose | Example |
-|-------|---------|---------|
-| **Orchestrator** | Team coordination, workflow, error handling | `youtube-production/skill.md` |
-| **Agent-Extending** | Domain knowledge that amplifies agent expertise | `hook-writing/skill.md`, `thumbnail-psychology/skill.md` |
-| **External** | Existing tools (Gemini image gen, web search) | `gemini-3-pro-imagegen` |
-
-## Quality Standards
-
-Every harness includes:
-
-- **Agent Team Mode** — SendMessage direct communication, cross-validation
-- **Domain Expertise** — Real frameworks (OWASP, Bloom's Taxonomy, Porter's 5 Forces, DCF, etc.)
-- **Structured Outputs** — Domain-specific templates per agent
-- **Dependency DAG** — Task ordering with parallel execution
-- **Error Handling** — Retry, skip, fallback strategies
-- **Scale Modes** — Full pipeline / reduced / single-agent
-- **Test Scenarios** — Normal / existing-file / error (3 types)
-- **Trigger Boundaries** — Should-trigger + NOT-trigger defined
+| Format | Primary Files | Intended Use |
+|-------|---------------|--------------|
+| **Claude** | `claude/.claude/CLAUDE.md`, `claude/.claude/agents/*.md`, `claude/.claude/skills/*/skill.md` | Preserve the original Claude Code harness source |
+| **Codex** | `codex/AGENTS.md`, `codex/.codex/agents/*.toml`, `codex/.agents/skills/*/SKILL.md` | Use the converted OpenAI Codex harness source |
 
 ## Domain Expertise
 
